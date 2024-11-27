@@ -1,0 +1,25 @@
+version: '3'
+services:
+  frontend:
+    build: ../career-path-front
+    ports:
+      - "80:80"
+    environment:
+      - REACT_APP_API_URL=http://146.190.125.155:3000
+  
+  backend:
+    build: ../career-path-backend
+    ports:
+      - "3001:3001"
+    environment:
+      - DATABASE_URL=postgres://user:password@db:5432/dbname
+
+  db:
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: dbname
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
