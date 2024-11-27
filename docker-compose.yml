@@ -8,7 +8,7 @@ services:
   #     - REACT_APP_API_URL=http://146.190.125.155:3000
   
   backend:
-    build: ../career-path-backend
+    build: rogerortiza/career-path-backend:latest
     ports:
       - "3001:3001"
     environment:
