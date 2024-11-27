@@ -1,11 +1,11 @@
 version: '3'
 services:
-  frontend:
-    build: ../career-path-front
-    ports:
-      - "80:80"
-    environment:
-      - REACT_APP_API_URL=http://146.190.125.155:3000
+  # frontend:
+  #   build: ../career-path-front
+  #   ports:
+  #     - "80:80"
+  #   environment:
+  #     - REACT_APP_API_URL=http://146.190.125.155:3000
   
   backend:
     build: ../career-path-backend
