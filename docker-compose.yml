@@ -1,35 +1,40 @@
 version: '3.8'
 services:
-  frontend:
-    image: rogerortiza/career-path-frontend:latest
-    ports:
-      - "80:80"
-    environment:
-      - REACT_APP_API_URL=http://146.190.125.155:3000
-      - BACKEND_API_URL=https://sea-turtle-app-zducj.ondigitalocean.app/api/v1
-      - NEXTAUTH_SECRET=wed23d32edwe21
-      - BACKEND_ONBOARDING=http://146.190.125.155/api/v1
-
-  backend:
-    image: rogerortiza/career-path-backend:latest
-    ports:
-      - "3001:3001"
-    environment:
-      - DATABASE_URL=postgres://altimetrik:SuperSecretPassword@db:5432/career-path
-
   db:
     image: postgres
     restart: always
     ports:
       - "5432:5432"
     environment:
-      - POSTGRES_DB=career-path
-      - POSTGRES_PASSWORD=SuperSecretPassword
-      - POSTGRES_USER=altimetrik
-      - DATABASE_HOST=db
-      - DATABASE_NAME=career-path
-      - DATABASE_USER=altimetrik
-      - DATABASE_PASSWORD=SuperSecretPassword
-      - DATABASE_PORT=5432
+      POSTGRES_DB: career-path
+      POSTGRES_PASSWORD: SuperSecretPassword
+      POSTGRES_USER: altimetrik
+      DATABASE_HOST: db
+      DATABASE_NAME: career-path
+      DATABASE_USER: altimetrik
+      DATABASE_PASSWORD: SuperSecretPassword
+      DATABASE_PORT: 5432
     volumes:
-      - ./postgres:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
+  
+  frontend:
+    image: rogerortiza/career-path-frontend:latest
+    ports:
+      - "80:80"
+    environment:
+      REACT_APP_API_URL: http://146.190.125.155:3000
+      BACKEND_API_URL: https://sea-turtle-app-zducj.ondigitalocean.app/api/v1
+      NEXTAUTH_SECRET: wed23d32edwe21
+      BACKEND_ONBOARDING: http://146.190.125.155/api/v1
+
+  backend:
+    image: rogerortiza/career-path-backend:latest
+    depends_on:
+      - db  # Ensure PostgreSQL is started before backend
+    ports:
+      - "3001:3001"
+    environment:
+      DATABASE_URL: postgres://altimetrik:SuperSecretPassword@db:5432/career-path
+
+volumes:
+  postgres_data:
