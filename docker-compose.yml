@@ -34,7 +34,7 @@ services:
     ports:
       - "3001:3001"
     environment:
-      DATABASE_URL: postgres://altimetrik:SuperSecretPassword@db:5432/career-path
+      DATABASE_URL: db://altimetrik:SuperSecretPassword@db:5432/career-path
 
 volumes:
   postgres_data:
